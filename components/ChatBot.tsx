@@ -18,23 +18,33 @@ export default function ChatBot() {
 
 	const sendMessage = async () => {
 		if (!message.trim()) return;
+
+		// Prepare the new chat message
 		const newChat = [...chat, { sender: 'User', text: message }];
 		setChat(newChat);
 
 		try {
+			// Wait for the AI response
 			const response = await axios.post('/api/chat', {
 				message,
 				wasteData,
 			});
-			setChat([...newChat, { sender: 'AI', text: response.data.reply }]);
+
+			// Only update chat after getting the response to avoid multiple state updates
+			setChat((prevChat) => [
+				...prevChat,
+				{ sender: 'AI', text: response.data.reply },
+			]);
 		} catch (error) {
-			setChat([
-				...newChat,
+			// In case of error, set a fallback message
+			setChat((prevChat) => [
+				...prevChat,
 				{ sender: 'AI', text: 'Error: Unable to get a response.' },
 			]);
-			console.log(error);
+			console.error(error);
 		}
 
+		// Reset the message input
 		setMessage('');
 	};
 

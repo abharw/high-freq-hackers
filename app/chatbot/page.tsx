@@ -1,10 +1,11 @@
-import ChatBot from "@/components/ChatBot";  // ✅ Corrected Import
-
-export default function ChatBotPage() {
-  return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Your AI Chatbot</h1>
-      <ChatBot />
-    </div>
-  );
+// app/chatbot/page.tsx
+export default function Chatbot() {
+	return (
+		<div>
+			<h1>Chatbot</h1>
+			{/* Example content */}
+			<p>Start a conversation with the chatbot!</p>
+			<Chatbot/>
+		</div>
+	);
 }

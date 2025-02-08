@@ -1,10 +1,6 @@
-'use client';
-
 import './globals.css';
 import { Inter } from 'next/font/google';
-import { Sidebar } from '../components/Sidebar';
-import React, { useState } from 'react';
-import Head from 'next/head'; // Import Head from Next.js
+import React from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,24 +9,23 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const [activeTab, setActiveTab] = useState('gallery');
-
 	return (
 		<html lang="en">
-			<Head>
-				<title>EcoSort</title>
-				<meta
-					name="description"
-					content="Hackathon project for identifying trash using machine learning"
-				/>
-			</Head>
 			<body className={inter.className}>
-				<div className="flex h-screen bg-gray-100">
-					<Sidebar
-						activeTab={activeTab}
-						setActiveTab={setActiveTab}
-					/>
-					<div className="flex-1 overflow-auto p-8">{children}</div>
+				<div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+					{/* Title and Logo Section */}
+					<div className="w-full max-w-lg p-8 text-center">
+						<h1 className="text-5xl font-bold text-green-700">
+							EcoSort
+						</h1>
+						{/* Logo placeholder */}
+						<div className="mt-4"></div>
+					</div>
+
+					{/* Main content (DataCard) */}
+					<div className="flex flex-col items-center justify-center bg-white rounded-lg">
+						{children}
+					</div>
 				</div>
 			</body>
 		</html>

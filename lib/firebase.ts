@@ -1,6 +1,8 @@
+// lib/firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
 
+// Firebase configuration (Make sure to set these environment variables)
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
 	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -10,28 +12,34 @@ const firebaseConfig = {
 	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  };
+
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
+
+// Get a reference to the Realtime Database
+const db = getDatabase(app);
+
+// Create a reusable method for creating a reference to a specific path in the database
+export const createRef = (path: string) => {
+	return ref(db, path);
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Create a reusable method to fetch data from the Firebase Realtime Database
+export const fetchData = async (path: string) => {
+	try {
+		const reference = createRef(path);
+		const snapshot = await get(reference);
+		if (snapshot.exists()) {
+			return snapshot.val(); // Return the data
+		} else {
+			console.error('No data available at path:', path);
+			return null;
+		}
+	} catch (error) {
+		console.error('Error fetching data:', error);
+		throw error;
+	}
+};
 
-// Export the app and database instances
-export const db = database;
-export default app;
-
-// Your existing data listening code
-const dataRef = ref(database, 'Status');
-
-onValue(
-	dataRef,
-	(snapshot) => {
-		const data = snapshot.val();
-		console.log('🔄 Updated Data from Firebase:');
-		console.log(`FPS: ${data.fps}`);
-		console.log(`Recycling: ${data.recycling}`);
-		console.log(`Trash: ${data.trash}`);
-	},
-	(error) => {
-		console.error('❌ Error fetching data:', error);
-	},
-);
+export { db, app };
