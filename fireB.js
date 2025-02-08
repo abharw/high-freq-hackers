@@ -15,6 +15,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Export the app and database instances
+export const db = database;
+export default app;
+
+// Your existing data listening code
 const dataRef = ref(database, 'Status');
 
 onValue(
