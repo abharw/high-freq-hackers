@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const mockImages = [
-  "/placeholder.svg?height=200&width=300",
+  "/my-image.jpg", // New image added
   "/placeholder.svg?height=200&width=300",
   "/placeholder.svg?height=200&width=300",
 ]
@@ -28,9 +28,9 @@ export function ImageVideoGallery() {
               {mockImages.map((src, index) => (
                 <img
                   key={index}
-                  src={src || "/placeholder.svg"}
-                  alt={`Trash ${index + 1}`}
-                  className="w-full h-auto rounded"
+                  src={src}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-auto rounded shadow-lg"
                 />
               ))}
             </div>
@@ -38,7 +38,7 @@ export function ImageVideoGallery() {
           <TabsContent value="videos">
             <div className="grid grid-cols-2 gap-4 mt-4">
               {mockVideos.map((src, index) => (
-                <video key={index} controls className="w-full h-auto rounded">
+                <video key={index} controls className="w-full h-auto rounded shadow-lg">
                   <source src={src} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
