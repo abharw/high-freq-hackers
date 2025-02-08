@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function ChatBot() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState<{ sender: string; text: string }[]>([]);
-  const [wasteData, setWasteData] = useState({
+  const [wasteData ] = useState({
     trashWeight: 5, // kg
     recyclablesWeight: 3, // kg
     compostableWeight: 2, // kg
