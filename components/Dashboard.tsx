@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { ImageVideoGallery } from "./ImageVideoGallery";
-import { DataDisplay } from "./DataDisplay";
+import DataDisplay from "./DataDisplay";
 import { ModelIntegration } from "./ModelIntegration";
 import ChatBot from "./ChatBot"; // ✅ Import chatbot
 
