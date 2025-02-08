@@ -2,30 +2,30 @@
 
 import './globals.css';
 import { Inter } from 'next/font/google';
-import { Sidebar } from '../components/Sidebar'; // ✅ Ensure correct import
-import React, { useState } from 'react'; // ✅ Import useState
+import { Sidebar } from '../components/Sidebar';
+import React, { useState } from 'react';
+import Head from 'next/head'; // Import Head from Next.js
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata = {
-	title: 'EcoSort',
-	description:
-		'Hackathon project for identifying trash using machine learning',
-};
 
 export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	// ✅ Add state for activeTab
 	const [activeTab, setActiveTab] = useState('gallery');
 
 	return (
 		<html lang="en">
+			<Head>
+				<title>EcoSort</title>
+				<meta
+					name="description"
+					content="Hackathon project for identifying trash using machine learning"
+				/>
+			</Head>
 			<body className={inter.className}>
 				<div className="flex h-screen bg-gray-100">
-					{/* ✅ Pass activeTab and setActiveTab to Sidebar */}
 					<Sidebar
 						activeTab={activeTab}
 						setActiveTab={setActiveTab}
