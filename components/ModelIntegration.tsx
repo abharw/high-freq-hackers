@@ -1,36 +1,20 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function ModelIntegration() {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [imageUrl, setImageUrl] = useState("")
   const [result, setResult] = useState<string | null>(null)
 
-  // Start the webcam stream
-  useEffect(() => {
-    const startWebcam = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true })
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
-        }
-      } catch (error) {
-        console.error("Error accessing webcam:", error)
-      }
-    }
-
-    startWebcam()
-  }, [])
-
-  // Function to simulate AI processing
-  const handleAnalyze = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Simulate API call to TensorFlow model
     setResult("Processing...")
-
-    // Simulate delay (AI model processing)
     setTimeout(() => {
       setResult("Plastic Bottle (87% confidence)")
     }, 2000)
@@ -42,20 +26,28 @@ export function ModelIntegration() {
         <CardTitle>TensorFlow Model Integration</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <Label>Live Camera Feed</Label>
-          <video ref={videoRef} autoPlay playsInline className="w-full h-auto rounded shadow-lg" />
-
-          <Button onClick={handleAnalyze}>Analyze Frame</Button>
-
-          {result && (
-            <div className="mt-4">
-              <h3 className="font-semibold">Result:</h3>
-              <p>{result}</p>
-            </div>
-          )}
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="imageUrl">Image URL</Label>
+            <Input
+              id="imageUrl"
+              type="text"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="Enter image URL"
+              required
+            />
+          </div>
+          <Button type="submit">Analyze Image</Button>
+        </form>
+        {result && (
+          <div className="mt-4">
+            <h3 className="font-semibold">Result:</h3>
+            <p>{result}</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   )
 }
+

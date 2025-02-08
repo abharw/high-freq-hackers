@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <!-- Circular recycling arrows -->
+  <g transform="translate(80, 100) scale(0.8)">
+    <path d="M60,-20 A50,50 0 1,1 20,60" fill="none" stroke="#2ecc71" stroke-width="12" stroke-linecap="round"/>
+    <polygon points="10,55 20,60 25,45" fill="#2ecc71"/>
+  </g>
+  
+  <!-- Leaf shape integrated with the circle -->
+  <path d="M140,90 Q160,60 180,90 Q160,120 140,90" fill="#27ae60"/>
+  
+  <!-- Company name -->
+  <text x="200" y="110" font-family="Arial, sans-serif" font-weight="bold" font-size="48" text-anchor="start" fill="#34495e">
+    eco<tspan fill="#2ecc71">sort</tspan>
+  </text>
+  
+  <!-- AI scanning lines -->
+  <g transform="translate(80, 100) scale(0.8)">
+    <line x1="-30" y1="-30" x2="30" y2="30" stroke="#3498db" stroke-width="2" stroke-dasharray="4,4"/>
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="#3498db" stroke-width="2" stroke-dasharray="4,4"/>
+    <line x1="30" y1="-30" x2="-30" y2="30" stroke="#3498db" stroke-width="2" stroke-dasharray="4,4"/>
+  </g>
+</svg>
