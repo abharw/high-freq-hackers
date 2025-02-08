@@ -1,19 +1,19 @@
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { Sidebar } from "../components/Sidebar"
-import type React from "react" // Added import for React
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { Sidebar } from "../components/Sidebar";
+import type React from "react"; // Added import for React
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Trash Identification Dashboard",
+  title: "EcoSort",
   description: "Hackathon project for identifying trash using machine learning",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -24,6 +24,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }
-
