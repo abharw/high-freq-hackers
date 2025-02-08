@@ -1,26 +1,32 @@
-var fb = require('firebase')
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
-var appIni = fb.initializeA({
-    apiKey: "AIzaSyB7pTnsNqgx0ubEn5AfEBHYner0Onzu71o",
-    authDomain: "ecosort-c044a.firebaseapp.com",
-    databaseURL: "https://ecosort-c044a-default-rtdb.firebaseio.com",
-    projectId: "ecosort-c044a",
-    storageBucket: "ecosort-c044a.firebasestorage.app",
-    messagingSenderId: "1057830166128",
-    appId: "1:1057830166128:web:114e2d2deba1e376f55eb5",
-    measurementId: "G-S3W3SEBX8G"
-})
+const firebaseConfig = {
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+};
 
-var firebaseDB = fb.getDatabase(appIni)
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-const dataRef = firebaseDB.ref("Status");
+const dataRef = ref(database, 'Status');
 
-dataRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    console.log("🔄 Updated Data from Firebase:");
-    console.log(`FPS: ${data.fps}`);
-    console.log(`Recycling: ${data.recycling}`);
-    console.log(`Trash: ${data.trash}`);
-  }, (error) => {
-    console.error("❌ Error fetching data:", error);
-  });
+onValue(
+	dataRef,
+	(snapshot) => {
+		const data = snapshot.val();
+		console.log('🔄 Updated Data from Firebase:');
+		console.log(`FPS: ${data.fps}`);
+		console.log(`Recycling: ${data.recycling}`);
+		console.log(`Trash: ${data.trash}`);
+	},
+	(error) => {
+		console.error('❌ Error fetching data:', error);
+	},
+);
